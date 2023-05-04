@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  doctos_console_solr_server:
+    image: solr:latest
+    container_name: doctos_console_solr_server
+    ports:
+      - "8981:8983"
+    volumes:
+      - ./solr_configsets/doctos_core_conf:/opt/configsets/doctos_core_conf
+    network_mode: host
+  
+networks:
+  solr:

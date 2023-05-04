@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<schema name="example">
+  <types>
+    <fieldType name="string" class="solr.StrField" />
+    <fieldType name="text_general" class="solr.TextField" positionIncrementGap="100">
+      <analyzer>
+        <tokenizer class="solr.StandardTokenizerFactory" />
+        <filter class="solr.StopFilterFactory" ignoreCase="true" words="resources/stopwords.txt" />
+        <filter class="solr.LowerCaseFilterFactory" />
+        <filter class="solr.PorterStemFilterFactory" />
+      </analyzer>
+    </fieldType>
+  </types>
+  
+  <fields>
+    <field name="id" type="string" indexed="true" stored="true" required="true" multiValued="false" />
+    <field name="title" type="text_general" indexed="true" stored="true" />
+    <field name="content" type="text_general" indexed="true" stored="true" multiValued="true" />
+  </fields>
+  
+  <uniqueKey>id</uniqueKey>
+  
+  <requestHandler name="search" class="solr.SearchHandler">
+  <lst name="defaults">
+    <str name="df">content</str>
+  </lst>
+</requestHandler>
+
+</schema>
